@@ -10,7 +10,7 @@ import Stories from './components/Stories';
 ReactDOM.render(
 <Router history={history}>
      <Switch>
-        <Route exact path='/' component={Welcome} />
+        <Route exact path='/'  component={Welcome} />
         <Route path='/landing' component={Landing} />
         <Route path='/stories' component={Stories} />
 

@@ -2,10 +2,12 @@ import React from 'react';
 import "./cardStyle.css";
 import "./cards.css";
 import instance from './BaseInstance';
+import Avatar from 'react-avatar';
 class Stories extends React.Component{
 
     constructor(props){
         super(props);
+        this.renderStories = this.renderStories.bind(this);
         this.state={
             storiesList:[]
         }
@@ -29,27 +31,32 @@ class Stories extends React.Component{
 
     }
 
-    renderStories = ()=>{
-        console.log("stt here", this.state.storiesList)
+    renderStories (){ 
+        let stories = this.state.storiesList;
         let nodes =[];
-        for(let i =0; this.state.storiesList.length; i++){
-            let firstname = "hey";
-            let lastname = "hi"
+        stories.forEach(function(element, index) {
+            let firstname = element.firstname;
+            let lastname = element.lastname;
+            let headline = element.headline;
+            let fullname = `${firstname} ${lastname}`;
+            let username = element.username;
+            let story = element.story;
             nodes.push(
-                <div className={`w3-col   w3-blue card card-1 w3-padding`} key={i}>
-          <h2 className="w3-large">{firstname}</h2>
-          <div>
-            <p className="w3-medium">{lastname}</p>
-          </div>
-          <div className="w3-light-grey w3-tiny w3-round-large">
-            Text
-          </div>
+                <div className="container">
+                <div className={`w3-panel w3-blue w3-card-4 w3-padding`} key={index}>
+          <Avatar name={fullname} size="50" round={true} />
+          <h2>{headline}</h2>
+          <h4>{fullname}</h4>
+          <h4>{username}</h4>
+          <h5>{story}</h5>
+          <div>Likes: <span className="w3-badge">5</span> <button  style={{float:"right"}}>Like</button></div>
           <br />
           
         </div>
+        </div>
             );
             
-        }
+        });
         return nodes;
     }
 
