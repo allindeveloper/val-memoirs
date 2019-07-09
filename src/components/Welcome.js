@@ -6,8 +6,7 @@ import instance from "./Instance";
 import baseInstance from "./BaseInstance";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
+// import "react-carousel/lib/carousel.css";
 import "./style.css";
 
 class Welcome extends React.Component {
@@ -37,6 +36,10 @@ class Welcome extends React.Component {
       }
     };
   }
+
+  componentWillMount(){
+  
+}
 
   componentDidMount() {
     console.log("props", this.props);
@@ -157,18 +160,19 @@ class Welcome extends React.Component {
     this.setState({ showAddStoryForm: true });
   };
 
+ 
+  
+
   renderSlideShow = images => {
-    console.log("images here", images);
     let nodes = [];
     for (let i = 0; i < images.length; i++) {
       let src = images[i].urls.raw;
       let alt = images[i].alt_description;
       let classname = `legend${i}`;
       nodes.push(
-        <div>
+        <div key={i}>
           <img src={src} alt={alt} />
-          <p className={classname}>{classname}</p>
-        </div>
+         </div>
       );
     }
 
@@ -184,8 +188,8 @@ class Welcome extends React.Component {
           class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
           style={{ backgroundColor: "crimson" }}
         >
-          <div class="container">
-            <Link class="navbar-brand" to={"/"}>
+          <div className="container">
+            <Link className="navbar-brand" to={"/"}>
               <strong>Val Memoirs</strong>
             </Link>
 
@@ -258,7 +262,7 @@ class Welcome extends React.Component {
         </nav>
 
         <Carousel showThumbs={false}>{this.renderSlideShow(images)}</Carousel>
-
+       
         <Modal show={this.state.showAddStoryForm} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add Your Story</Modal.Title>

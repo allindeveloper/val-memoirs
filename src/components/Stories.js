@@ -4,6 +4,7 @@ import "./cards.css";
 import instance from "./BaseInstance";
 import Avatar from "react-avatar";
 import { Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 class Stories extends React.Component {
   constructor(props) {
     super(props);
@@ -160,6 +161,85 @@ class Stories extends React.Component {
     console.log("this.storieslist", storiesList);
     return (
       <div>
+          <nav
+          class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
+          style={{ backgroundColor: "crimson" }}
+        >
+          <div className="container">
+            <Link className="navbar-brand" to={"/"}>
+              <strong>Val Memoirs</strong>
+            </Link>
+
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon" />
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              {/* <!-- Left --> */}
+              <ul class="navbar-nav mr-auto">
+                {/* <li class="nav-item active">
+                  <a class="nav-link" href="#">
+                    Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li> */}
+                {/* <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="https://mdbootstrap.com/docs/jquery/"
+                    target="_blank"
+                  >
+                    About code.now
+                  </a>
+                </li> */}
+              </ul>
+
+              <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item">
+                  <Link to={"/"} class="nav-link" target="_blank">
+                    <i class="fab fa-facebook-f" />
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link to={"/"} class="nav-link" target="_blank">
+                    <i class="fab fa-twitter" />
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    to={"/stories"}
+                    className="btn-blue nav-link border border-light rounded"
+                  >
+                    <i class="fab fa-github mr-2" />
+                    View Stories
+                  </Link>
+                </li>
+                &nbsp;
+                <li class="nav-item">
+                  <button
+                    onClick={this.handleShow}
+                    className="btn btn-blue nav-link border border-light rounded"
+                    target="_blank"
+                  >
+                    <i class="fab fa-github mr-2" />
+                    Add Story
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+         <center style={{marginTop:"5rem",fontSize:"3rem"}}>
+                All Stories
+        </center>       
         {this.renderStories()}
 
         <Modal
