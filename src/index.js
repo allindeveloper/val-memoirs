@@ -5,7 +5,7 @@ import './index.css';
 import history from './history'
 import Welcome from './components/Welcome'
 import * as serviceWorker from './serviceWorker';
-import Landing from './components/Landing';
+// import Landing from './components/Landing';
 import Stories from './components/Stories';
 ReactDOM.render(
 <Router history={history}>
