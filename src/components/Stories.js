@@ -242,16 +242,7 @@ signoff =()=> {
                   </Link>
                 </li>
                 &nbsp;
-                <li class="nav-item">
-                  <button
-                    onClick={this.handleShow}
-                    className="btn btn-blue nav-link border border-light rounded"
-                    target="_blank"
-                  >
-                    <i class="fab fa-github mr-2" />
-                    Add Story
-                  </button>
-                </li>
+                
               </ul>
             </div>
           </div>
