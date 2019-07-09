@@ -9,7 +9,6 @@ import { Modal, Button } from "react-bootstrap";
 import HomeInstance from './HomeInstance';
 import "../animate.min.css";
 import "./style.css";
-
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
