@@ -1,5 +1,6 @@
 {
-	"SERVICEBASEURI":"https://val-memoirs-api-service.herokuapp.com/",
+	"SERVICEBASEAPIURI":"https://val-memoirs-api-service.herokuapp.com/",
 	"UNSPLASHBASEURI":"https://api.unsplash.com",
+	"SERVICEBASEURI":"http://localhost:3009/",
 	"APIKEY":"b0b72efd473a169172c9c2fc30ab71f31267bbff857d7d85a9f80dbae7ab205c"
 }

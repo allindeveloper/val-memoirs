@@ -4,7 +4,7 @@ import "./cards.css";
 import instance from "./BaseInstance";
 import Avatar from "react-avatar";
 import { Modal, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 class Stories extends React.Component {
   constructor(props) {
     super(props);
@@ -13,8 +13,9 @@ class Stories extends React.Component {
     this.state = {
       storiesList: [],
       showViewMoreStoryForm: false,
-      dataForView: {}
-    };
+      dataForView: {},
+      urlone:"http://pngriver.com/wp-content/uploads/2018/04/Download-Heart-PNG-HD.png",
+     };
   }
 
   componentDidMount() {
@@ -77,6 +78,7 @@ class Stories extends React.Component {
   renderStories() {
     let stories = this.state.storiesList;
     let nodes = [];
+    if(stories.length !== 0){
     stories.forEach((element, index) => {
       let firstname = element.firstname;
       let lastname = element.lastname;
@@ -84,6 +86,7 @@ class Stories extends React.Component {
       let fullname = `${firstname} ${lastname}`;
       let username = element.username;
       let story = element.story;
+      let truncate = (input) => input.length > 100 ? `${input.substring(0, 100)}...` : input;
       let likes = element.likes;
       nodes.push(
         <div className="container" key={index}>
@@ -92,12 +95,12 @@ class Stories extends React.Component {
             <h2>{headline}</h2>
             <h4>{fullname}</h4>
             <h4>{username}</h4>
-            <h5>{story}</h5>
+            <h5>{truncate(story)}</h5>
             <div>
               Likes: <span className="w3-badge">{likes}</span>{" "}
               <img
                 style={{ float: "right", width: "5%" }}
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png"
+                src={this.state.urlone}
                 alt="like"
                 onClick={() => this.likeStory(element)}
               />{" "}
@@ -115,6 +118,14 @@ class Stories extends React.Component {
       );
     });
     return nodes;
+}else{
+    nodes.push(
+        <center style={{marginTop:"6rem",fontSize:"3rem"}}>
+                Loading...
+        </center> 
+    )
+    return nodes;
+}
   }
 
   renderViewMore = element => {
@@ -156,6 +167,13 @@ class Stories extends React.Component {
   handleClose = () => {
     this.setState({ showViewMoreStoryForm: false });
   };
+  goHome =() => {
+    console.log("router", this.props)
+     this.props.history.goBack()
+}
+signoff =()=> {
+    setTimeout(this.goHome, 1000);
+}
   render() {
     let { storiesList } = this.state;
     console.log("this.storieslist", storiesList);
@@ -166,9 +184,9 @@ class Stories extends React.Component {
           style={{ backgroundColor: "crimson" }}
         >
           <div className="container">
-            <Link className="navbar-brand" to={"/"}>
+            <a className="navbar-brand" onClick={this.signoff}>
               <strong>Val Memoirs</strong>
-            </Link>
+            </a>
 
             <button
               class="navbar-toggler"

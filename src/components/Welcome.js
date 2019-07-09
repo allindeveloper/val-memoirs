@@ -6,6 +6,7 @@ import instance from "./Instance";
 import baseInstance from "./BaseInstance";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import HomeInstance from './HomeInstance';
 // import "react-carousel/lib/carousel.css";
 import "./style.css";
 
@@ -18,7 +19,7 @@ class Welcome extends React.Component {
       key: {},
       images: [],
       storiesList: [],
-      showAddStoryForm: false,
+      showAddStoryForm: false,showTourForm:false,
       key: "",
       showError: false,
       ErrorValue: "",
@@ -42,7 +43,7 @@ class Welcome extends React.Component {
 }
 
   componentDidMount() {
-    console.log("props", this.props);
+    console.log("instnace", this.props);
     const PHOTOS = "photos";
     const PAGENUMBER = 5;
     const STORIES = "stories";
@@ -55,8 +56,9 @@ class Welcome extends React.Component {
     } catch (err) {
       console.log("error when calling api =>", err);
     }
-
-    instance.get("/config.json").then(res => {
+    try{
+    
+    HomeInstance.get("/config.json").then(res => {
       this.setState({ key: res.data.APIKEY });
       try {
         const response = instance.get(`${PHOTOS}`, {
@@ -68,7 +70,9 @@ class Welcome extends React.Component {
           }
         });
         response.then(res => {
-          this.setState({ images: res.data });
+          this.setState({ images: res.data },()=>{
+              this.setState({showTourForm:true})
+          });
           console.log("res-images", res);
         });
         this.setState({ images: response });
@@ -76,6 +80,9 @@ class Welcome extends React.Component {
         console.log("error when calling unsplash =>", err);
       }
     });
+    }catch(err){
+        console.log("error",err)
+    }
   }
 
   reset = () => {
@@ -160,11 +167,14 @@ class Welcome extends React.Component {
     this.setState({ showAddStoryForm: true });
   };
 
- 
+  handleCloseTour = () =>{
+      this.setState({showTourForm:true})
+  }
   
 
   renderSlideShow = images => {
     let nodes = [];
+    if(images.length !==0){
     for (let i = 0; i < images.length; i++) {
       let src = images[i].urls.raw;
       let alt = images[i].alt_description;
@@ -175,8 +185,16 @@ class Welcome extends React.Component {
          </div>
       );
     }
-
     return nodes;
+    }else{
+        nodes.push(
+            <center style={{marginTop:"5rem",fontSize:"3rem"}}>
+                Loading...
+        </center> 
+        )
+        return nodes;
+    }
+    
   };
 
   render() {
@@ -211,7 +229,7 @@ class Welcome extends React.Component {
                 {/* <li class="nav-item active">
                   <a class="nav-link" href="#">
                     Home
-                    <span class="sr-only">(current)</span>
+                    <span className="sr-only">(current)</span>
                   </a>
                 </li> */}
                 {/* <li class="nav-item">
@@ -310,7 +328,6 @@ class Welcome extends React.Component {
                   <div className="form-group">
                     <select
                       className="form-control"
-                      defaultValue="Gender"
                       placeholder="Select Gende"
                       name="gender"
                       id="gender"
@@ -362,6 +379,54 @@ class Welcome extends React.Component {
               onClick={this.submit}
             >
               {this.state.saveText}
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+
+        <Modal
+          show={this.state.showTourForm}
+          onHide={this.handleCloseTour}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Quick Guide</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className="w3-container row">
+              
+           <div className="row">
+              <div className="col-md-12">
+                Welcome for Val Memoirs
+              </div>
+            </div>
+            <br/>
+            <div className="row">
+              <div className="col-md-12">
+              Share your experiences with everyone
+              </div>
+            </div>
+            <br/>
+            <div className="row">
+              <div className="col-md-12">
+             Click the Add Story button at the top right to begin
+              </div>
+            </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <p style={{ margin: "3%", color: "#ff1313" }}>
+              {this.state.ErrorValue}
+            </p>
+            <Button variant="secondary" onClick={this.handleCloseTour}>
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              disabled={this.state.disabled}
+              onClick={this.submit}
+            >
+              Okay
             </Button>
           </Modal.Footer>
         </Modal>
