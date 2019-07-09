@@ -6,6 +6,8 @@ import instance from './Instance';
 import baseInstance from './BaseInstance';
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 import "./style.css";
 
 class Welcome extends React.Component {
@@ -49,7 +51,7 @@ class Welcome extends React.Component {
         instance.get("/config.json").then((res)=>{
             this.setState({key:res.data.APIKEY})
             try{
-        const response =  instance.get(`${PHOTOS}`, { params: { client_id: this.state.key,query:"valentine",per_page: PAGENUMBER } });
+        const response =  instance.get(`${PHOTOS}`, { params: { client_id: this.state.key,query:"valentine",per_page: PAGENUMBER, h:"300"} });
         response.then((res)=>{
             this.setState({images:res.data})
             console.log("res-images", res)
@@ -134,13 +136,13 @@ class Welcome extends React.Component {
       };
     
 
+ 
     renderSlideShow = (images)=>{
         
-
+        console.log("images here", images)
         let nodes = [];
         for(let i=0; i <images.length; i++){
-
-            let src = images[i].urls.raw
+            let src = images[i].urls.raw;
             let alt = images[i].alt_description;
             let classname = `legend${i}`;
             nodes.push(
@@ -260,27 +262,19 @@ class Welcome extends React.Component {
                 {
                     this.renderSlideShow(images)
                 }
-                {/* <div>
-                    <img src="/1.png" alt="1"></img>
-                    <p className="legend1">Legend 1</p>
-                </div>
-                <div>
-                    <img src="/2.png"  alt="2"/>
-                    <p className="legend2">Legend 2</p>
-                </div>
-                <div>
-                    <img src="/3.png"  alt="3"/>
-                    <p className="legend">Legend 3</p>
-                </div> */}
+                
             </Carousel>
+            
+            
 
             <Modal show={this.state.showAddStoryForm} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Add Your Story</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div className="row">
-                <div className="col-md-12">
+             <div className="w3-container" style={{paddingLeft:"0px"}}>
+              <div className="w3-row">
+                <div className="w3-col">
                   <div class="form-group">
                     <input
                       type="text"
@@ -350,6 +344,7 @@ class Welcome extends React.Component {
 
 
 
+                </div>
                 </div>
               </div>
             </Modal.Body>

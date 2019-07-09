@@ -11,8 +11,7 @@ ReactDOM.render(
 <Router history={history}>
      <Switch>
         <Route exact path='/'  component={Welcome} />
-        <Route path='/landing' component={Landing} />
-        <Route path='/stories' component={Stories} />
+         <Route path='/stories' component={Stories} />
 
           
               {/* <Route exact path='/' component={Dashboard} />
