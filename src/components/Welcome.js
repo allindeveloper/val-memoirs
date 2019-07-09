@@ -7,7 +7,7 @@ import baseInstance from "./BaseInstance";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import HomeInstance from './HomeInstance';
-// import "react-carousel/lib/carousel.css";
+import "../animate.min.css";
 import "./style.css";
 
 class Welcome extends React.Component {
@@ -168,7 +168,7 @@ class Welcome extends React.Component {
   };
 
   handleCloseTour = () =>{
-      this.setState({showTourForm:true})
+      this.setState({showTourForm:false})
   }
   
 
@@ -181,7 +181,7 @@ class Welcome extends React.Component {
       let classname = `legend${i}`;
       nodes.push(
         <div key={i}>
-          <img src={src} alt={alt} />
+          <img className="animated slideInUp" src={src} alt={alt} />
          </div>
       );
     }
@@ -415,16 +415,10 @@ class Welcome extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <p style={{ margin: "3%", color: "#ff1313" }}>
-              {this.state.ErrorValue}
-            </p>
-            <Button variant="secondary" onClick={this.handleCloseTour}>
-              Close
-            </Button>
             <Button
               variant="primary"
               disabled={this.state.disabled}
-              onClick={this.submit}
+              onClick={this.handleCloseTour}
             >
               Okay
             </Button>

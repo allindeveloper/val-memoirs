@@ -5,6 +5,7 @@ import instance from "./BaseInstance";
 import Avatar from "react-avatar";
 import { Modal, Button } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
+import "../animate.min.css";
 class Stories extends React.Component {
   constructor(props) {
     super(props);
@@ -90,7 +91,7 @@ class Stories extends React.Component {
       let likes = element.likes;
       nodes.push(
         <div className="container" key={index}>
-          <div className={`w3-panel w3-blue w3-card-4 w3-padding`}>
+          <div className={`w3-panel w3-blue w3-card-4 w3-padding animated slideInUp`}>
             <Avatar name={fullname} size="50" round={true} />
             <h2>{headline}</h2>
             <h4>{fullname}</h4>
@@ -184,9 +185,9 @@ signoff =()=> {
           style={{ backgroundColor: "crimson" }}
         >
           <div className="container">
-            <a className="navbar-brand" onClick={this.signoff}>
+            <Link className="navbar-brand" to={"/"}>
               <strong>Val Memoirs</strong>
-            </a>
+            </Link>
 
             <button
               class="navbar-toggler"
